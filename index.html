@@ -13,7 +13,7 @@
     .grain { position: fixed; inset: 0; pointer-events: none; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); z-index: 999; }
 
     .header { padding: 24px 40px; display: flex; align-items: center; gap: 14; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .header video { width: 42px; height: 42px; border-radius: 10px; object-fit: contain; background: #000; }
+    .header img.logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
     .header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
     .header .sub { font-size: 10px; font-weight: 700; font-family: monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #BCFF2F; margin-top: 2px; }
 
@@ -81,7 +81,7 @@
   <div class="grain"></div>
 
   <div class="header">
-    <video src="/okx-logo.webm" autoplay muted loop playsinline></video>
+    <img src="/okx-logo.png" alt="OKX" class="logo" />
     <div>
       <h1>Pre-Deployment AI Suite</h1>
       <div class="sub">Global Email Marketing</div>
@@ -94,21 +94,21 @@
   </div>
 
   <div class="cards">
-    <a href="https://email-qa-agent.netlify.app/" class="card card-qa">
+    <a href="https://email-qa-agent.netlify.app/" target="_blank" class="card card-qa">
       <div class="card-icon">🔍</div>
       <h3>QA Review</h3>
       <p>Score templates across copy, design, CTAs, and compliance. Get A/B test suggestions.</p>
       <span class="card-tag">Launch tool →</span>
     </a>
 
-    <a href="https://okx-compliance-tool.netlify.app/" class="card card-comp">
+    <a href="https://okx-compliance-tool.netlify.app/" target="_blank" class="card card-comp">
       <div class="card-icon">⚖️</div>
       <h3>Compliance Review</h3>
       <p>Scan assets across 13 legal categories. Flagged phrases with suggested fixes.</p>
       <span class="card-tag">Launch tool →</span>
     </a>
 
-    <a href="https://okx-translation-tool.netlify.app/" class="card card-trans">
+    <a href="https://okx-translation-tool.netlify.app/" target="_blank" class="card card-trans">
       <div class="card-icon">🌐</div>
       <h3>Translation</h3>
       <p>Translate into 21 languages. Structured output by section, ready to use.</p>
