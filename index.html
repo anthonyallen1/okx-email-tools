@@ -3,83 +3,117 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OKX Email Marketing Tools</title>
+  <title>OKX Pre-Deployment AI Suite</title>
   <link rel="icon" type="image/png" href="/okx-logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #141414; color: #f5f5f5; font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
-
-    .grain { position: fixed; inset: 0; pointer-events: none; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); z-index: 999; }
-
+    body::after { content:''; position:fixed; inset:0; background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; }
     .header { padding: 24px 40px; display: flex; align-items: center; gap: 14; border-bottom: 1px solid rgba(255,255,255,0.06); }
     .header img.logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
     .header h1 { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
-    .header .sub { font-size: 10px; font-weight: 700; font-family: monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #BCFF2F; margin-top: 2px; }
-
+    .header .sub { font-size: 10px; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #BCFF2F; margin-top: 2px; }
+    .tabs { display: flex; gap: 0; max-width: 1200px; margin: 0 auto; padding: 20px 40px 0; }
+    .tab { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; padding: 12px 28px; border: 1px solid rgba(255,255,255,0.08); border-bottom: none; border-radius: 12px 12px 0 0; background: transparent; color: rgba(255,255,255,0.35); cursor: pointer; transition: all 0.25s; text-transform: uppercase; }
+    .tab:hover { color: rgba(255,255,255,0.6); }
+    .tab.active { background: rgba(188,255,47,0.04); border-color: rgba(188,255,47,0.18); color: #BCFF2F; }
+    .tab-line { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .tab-line div { height: 1px; background: rgba(255,255,255,0.06); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
     .hero { text-align: center; padding: 80px 40px 20px; }
     .hero h2 { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 16px; }
-    .hero h2 .rolling {
-      display: inline-block;
-      background: linear-gradient(90deg, #f5f5f5 0%, #f5f5f5 20%, #BCFF2F 40%, #60a5fa 60%, #f5f5f5 80%, #f5f5f5 100%);
-      background-size: 300% 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientRoll 3s ease-in-out infinite;
-      animation-delay: 0.5s;
-    }
-    @keyframes gradientRoll {
-      0% { background-position: 100% 0; }
-      100% { background-position: -30% 0; }
-    }
+    .hero h2 .rolling { display: inline-block; background: linear-gradient(90deg, #f5f5f5 0%, #f5f5f5 20%, #BCFF2F 40%, #60a5fa 60%, #f5f5f5 80%, #f5f5f5 100%); background-size: 300% 100%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientRoll 3s ease-in-out infinite; animation-delay: 0.5s; }
+    @keyframes gradientRoll { 0% { background-position: 100% 0; } 100% { background-position: -30% 0; } }
     .hero p { font-size: 16px; color: rgba(255,255,255,0.45); max-width: 520px; margin: 0 auto; line-height: 1.7; }
-
     .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 48px auto 0; padding: 0 40px; }
-
-    .card {
-      position: relative; padding: 36px 30px 30px; border-radius: 20px;
-      border: 1px solid rgba(188,255,47,0.18);
-      background: rgba(255,255,255,0.03);
-      text-decoration: none; color: #f5f5f5; display: flex; flex-direction: column; align-items: center; text-align: center;
-      transition: all 0.35s ease; cursor: pointer; overflow: hidden;
-    }
-    .card::before {
-      content: ''; position: absolute; inset: -1px; border-radius: 20px; opacity: 0;
-      background: radial-gradient(ellipse at 50% 50%, rgba(188,255,47,0.12) 0%, transparent 70%);
-      transition: opacity 0.35s ease; pointer-events: none; z-index: 0;
-    }
+    .card { position: relative; padding: 36px 30px 30px; border-radius: 20px; border: 1px solid rgba(188,255,47,0.18); background: rgba(255,255,255,0.03); text-decoration: none; color: #f5f5f5; display: flex; flex-direction: column; align-items: center; text-align: center; transition: all 0.35s ease; cursor: pointer; overflow: hidden; }
+    .card::before { content: ''; position: absolute; inset: -1px; border-radius: 20px; opacity: 0; background: radial-gradient(ellipse at 50% 50%, rgba(188,255,47,0.12) 0%, transparent 70%); transition: opacity 0.35s ease; pointer-events: none; z-index: 0; }
     .card:hover { border-color: rgba(188,255,47,0.4); transform: translateY(-4px); box-shadow: 0 0 40px rgba(188,255,47,0.08), 0 20px 60px rgba(188,255,47,0.05); }
     .card:hover::before { opacity: 1; }
-
     .card-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 20px; background: rgba(188,255,47,0.06); border: 1px solid rgba(188,255,47,0.15); position: relative; z-index: 1; }
-
     .card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; position: relative; z-index: 1; }
     .card p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.65; flex: 1; position: relative; z-index: 1; }
-
-    .card-tag { display: inline-block; margin-top: 20px; padding: 8px 24px; border-radius: 10px; font-size: 11px; font-weight: 700; font-family: monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #BCFF2F; background: rgba(188,255,47,0.06); border: 1px solid rgba(188,255,47,0.15); position: relative; z-index: 1; transition: all 0.3s ease; }
+    .card-tag { display: inline-block; margin-top: 20px; padding: 8px 24px; border-radius: 10px; font-size: 11px; font-weight: 700; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #BCFF2F; background: rgba(188,255,47,0.06); border: 1px solid rgba(188,255,47,0.15); position: relative; z-index: 1; transition: all 0.3s ease; }
     .card:hover .card-tag { background: rgba(188,255,47,0.12); border-color: rgba(188,255,47,0.3); }
-
     .footer { text-align: center; padding: 60px 40px 40px; }
-    .footer p { font-size: 11px; color: rgba(255,255,255,0.2); font-family: monospace; }
-
-    @media (max-width: 768px) {
-      .cards { grid-template-columns: 1fr; max-width: 420px; }
-      .hero h2 { font-size: 28px; }
-      .hero { padding: 50px 24px 10px; }
-      .cards { padding: 0 24px; }
-    }
-
+    .footer p { font-size: 11px; color: rgba(255,255,255,0.2); font-family: 'JetBrains Mono', monospace; }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .card { animation: fadeUp 0.5s ease-out backwards; }
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
+    @media (max-width: 768px) { .cards { grid-template-columns: 1fr; max-width: 420px; } .hero h2 { font-size: 28px; } .hero { padding: 50px 24px 10px; } .cards, .tabs { padding: 0 24px; } }
+    /* AI Overview Tab Styles */
+    .ai-ctr { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+    .ai-hd { text-align: center; margin-bottom: 56px; animation: fadeUp .8s cubic-bezier(.16,1,.3,1) both; }
+    .ai-htag { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .ai-htag .bar { width: 3px; height: 18px; background: #BCFF2F; border-radius: 2px; }
+    .ai-htag span { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 2px; color: #666; text-transform: uppercase; }
+    .ai-hd h2 { font-size: clamp(32px,5vw,52px); font-weight: 700; line-height: 1.1; margin-bottom: 12px; }
+    .ai-hd h2 em { font-style: normal; color: #BCFF2F; }
+    .ai-hd p { font-size: 18px; color: #666; max-width: 600px; margin: 0 auto; line-height: 1.5; }
+    .ai-vs { margin-bottom: 64px; animation: fadeUp .8s .15s cubic-bezier(.16,1,.3,1) both; }
+    .ai-vw { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid #1a1a1a; background: #0d0d0d; aspect-ratio: 16/9; cursor: pointer; }
+    .ai-vw video { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ai-vo { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.5); transition: opacity .3s; }
+    .ai-vo.hid { opacity: 0; pointer-events: none; }
+    .ai-pb { width: 80px; height: 80px; border-radius: 50%; background: #BCFF2F; display: flex; align-items: center; justify-content: center; transition: transform .2s, box-shadow .2s; }
+    .ai-pb:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(188,255,47,.3); }
+    .ai-pb svg { margin-left: 4px; }
+    .ai-vl { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #666; text-align: center; margin-top: 12px; letter-spacing: 1px; }
+    .ai-sb { display: flex; gap: 16px; margin: 40px 0; flex-wrap: wrap; animation: fadeUp .8s .2s cubic-bezier(.16,1,.3,1) both; }
+    .ai-sc { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 10px; padding: 16px 22px; min-width: 140px; flex: 1; }
+    .ai-sv { font-size: 28px; font-weight: 700; color: #BCFF2F; line-height: 1; }
+    .ai-sl { font-size: 11px; color: #666; margin-top: 6px; font-weight: 500; }
+    .ai-secl { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+    .ai-secl .bar { width: 3px; height: 16px; background: #BCFF2F; border-radius: 2px; }
+    .ai-secl span { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; color: #666; text-transform: uppercase; }
+    .ai-cys { margin-bottom: 64px; animation: fadeUp .8s .3s cubic-bezier(.16,1,.3,1) both; }
+    .ai-cyc { position: relative; width: 100%; max-width: 700px; margin: 0 auto; aspect-ratio: 1; }
+    .ai-cyc-ctr { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; z-index: 2; }
+    .ai-cyc-ring { width: 160px; height: 160px; border-radius: 50%; border: 2px solid #BCFF2F; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(188,255,47,.03); position: relative; }
+    .ai-cyc-ring::before { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(188,255,47,.08); }
+    .ai-cyc-ctr h3 { font-size: 20px; font-weight: 700; color: #BCFF2F; line-height: 1.2; }
+    .ai-cyc-ctr .sub { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(188,255,47,.4); letter-spacing: 2px; margin-top: 4px; }
+    .ai-cyc svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .ai-arc { fill: none; stroke: #1a1a1a; stroke-width: 2; transition: stroke .5s, stroke-width .5s; }
+    .ai-arc.on { stroke: #BCFF2F; stroke-width: 3; }
+    @keyframes nodeGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(188,255,47,0); } 50% { box-shadow: 0 0 24px 6px rgba(188,255,47,.18); } }
+    .ai-cn { position: absolute; width: 185px; padding: 14px 16px; background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 12px; cursor: pointer; transition: all .4s cubic-bezier(.16,1,.3,1); transform: translate(-50%,-50%); z-index: 3; }
+    .ai-cn:hover, .ai-cn.on { border-color: #BCFF2F; background: rgba(188,255,47,.04); animation: nodeGlow 2s infinite; }
+    .ai-cn .nn { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #333; transition: color .4s; }
+    .ai-cn.on .nn, .ai-cn:hover .nn { color: #BCFF2F; }
+    .ai-cn .nt { font-size: 15px; font-weight: 600; color: #999; margin-top: 2px; transition: color .4s; }
+    .ai-cn.on .nt, .ai-cn:hover .nt { color: #BCFF2F; }
+    .ai-cn .nd { font-size: 11px; color: #333; margin-top: 4px; line-height: 1.4; }
+    .ai-cn .ni { font-family: 'JetBrains Mono', monospace; font-size: 10px; margin-top: 8px; display: flex; align-items: center; gap: 6px; opacity: 0; transform: translateY(4px); transition: all .3s; }
+    .ai-cn.on .ni, .ai-cn:hover .ni { opacity: 1; transform: translateY(0); }
+    .ni .bf { color: #333; text-decoration: line-through; } .ni .ar { color: #666; } .ni .af { color: #BCFF2F; font-weight: 600; }
+    .ai-nav-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; position: sticky; top: 0; z-index: 10; background: rgba(20,20,20,.85); backdrop-filter: blur(12px); padding: 12px 0; border-bottom: 1px solid #1a1a1a; }
+    .ai-nav-btn { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; padding: 6px 14px; border-radius: 999px; border: 1px solid #333; background: transparent; color: #666; cursor: pointer; transition: all .25s; letter-spacing: .3px; white-space: nowrap; }
+    .ai-nav-btn:hover, .ai-nav-btn.active { border-color: #BCFF2F; color: #BCFF2F; background: rgba(188,255,47,.06); }
+    .ai-as { animation: fadeUp .8s .45s cubic-bezier(.16,1,.3,1) both; }
+    .ai-cg { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 24px; }
+    .ai-ac { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 14px; padding: 28px 24px 22px; display: flex; flex-direction: column; gap: 12px; transition: border-color .3s, box-shadow .3s; scroll-margin-top: 70px; }
+    .ai-ac:hover { border-color: rgba(188,255,47,.2); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+    .ai-ct { font-size: 18px; font-weight: 600; } .ai-br { display: flex; gap: 6px; align-items: center; }
+    .ai-bd { display: inline-flex; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .3px; }
+    .ai-bd-n { background: #1a1a1a; color: #999; border: 1px solid #333; }
+    .ai-bd-l { background: #BCFF2F; color: #000; animation: livePulse 2s ease-in-out infinite; }
+    @keyframes livePulse { 0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(188,255,47,.4); } 50% { opacity:.85; box-shadow: 0 0 8px 3px rgba(188,255,47,.25); } }
+    .ai-cd { font-size: 13px; color: #666; line-height: 1.5; } .ai-tr { display: flex; gap: 6px; }
+    .ai-tp { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 3px 10px; border-radius: 999px; background: rgba(188,255,47,.06); color: #666; border: 1px solid rgba(188,255,47,.1); }
+    .ai-bl { display: flex; flex-direction: column; gap: 6px; } .ai-bi { display: flex; gap: 8px; align-items: flex-start; }
+    .ai-bic { color: rgba(188,255,47,.4); font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+    .ai-bt { font-size: 13px; color: #999; line-height: 1.5; }
+    .ai-cf { margin-top: auto; padding-top: 12px; border-top: 1px solid #1a1a1a; font-size: 12px; color: #333; display: flex; align-items: center; gap: 6px; }
+    .ai-cf .st { font-size: 10px; color: rgba(188,255,47,.4); }
+    @media(max-width:768px) { .ai-cyc { display: none; } .ai-cg { grid-template-columns: 1fr; } .ai-nav-bar { overflow-x: auto; } .ai-ctr { padding: 32px 24px 60px; } }
   </style>
 </head>
 <body>
-  <div class="grain"></div>
-
   <div class="header">
     <img src="data:image/png;base64,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" alt="OKX" class="logo" />
     <div>
@@ -87,37 +121,135 @@
       <div class="sub">Global Email Marketing</div>
     </div>
   </div>
-
-  <div class="hero">
-    <h2><span class="rolling">Review. Comply. Translate.</span></h2>
-    <p>Three standalone tools for the email marketing workflow. Each one purpose-built, fast, and ready to use.</p>
+  <div class="tabs">
+    <button class="tab active" id="tab-btn-tools" onclick="switchTab('tools')">🛠 Tools</button>
+    <button class="tab" id="tab-btn-overview" onclick="switchTab('overview')">🤖 AI Overview</button>
+  </div>
+  <div class="tab-line"><div></div></div>
+  <div class="tab-content active" id="tab-tools">
+    <div class="hero">
+      <h2><span class="rolling">Review. Comply. Translate.</span></h2>
+      <p>Three standalone tools for the email marketing workflow. Each one purpose-built, fast, and ready to use.</p>
+    </div>
+    <div class="cards">
+      <a href="https://email-qa-agent.netlify.app/" target="_blank" class="card card-qa">
+        <div class="card-icon">🔍</div>
+        <h3>QA Review</h3>
+        <p>Score templates across copy, design, CTAs, and compliance. Get A/B test suggestions.</p>
+        <span class="card-tag">Launch tool →</span>
+      </a>
+      <a href="https://okx-compliance-tool.netlify.app/" target="_blank" class="card card-comp">
+        <div class="card-icon">⚖️</div>
+        <h3>Compliance Review</h3>
+        <p>Scan assets across 13 legal categories. Flagged phrases with suggested fixes.</p>
+        <span class="card-tag">Launch tool →</span>
+      </a>
+      <a href="https://okx-translation-tool.netlify.app/" target="_blank" class="card card-trans">
+        <div class="card-icon">🌐</div>
+        <h3>Translation</h3>
+        <p>Translate into 21 languages. Structured output by section, ready to use.</p>
+        <span class="card-tag">Launch tool →</span>
+      </a>
+    </div>
+    <div class="footer"><p>OKX Global Email Marketing · QA · Compliance · Translation</p></div>
   </div>
 
-  <div class="cards">
-    <a href="https://email-qa-agent.netlify.app/" target="_blank" class="card card-qa">
-      <div class="card-icon">🔍</div>
-      <h3>QA Review</h3>
-      <p>Score templates across copy, design, CTAs, and compliance. Get A/B test suggestions.</p>
-      <span class="card-tag">Launch tool →</span>
-    </a>
-
-    <a href="https://okx-compliance-tool.netlify.app/" target="_blank" class="card card-comp">
-      <div class="card-icon">⚖️</div>
-      <h3>Compliance Review</h3>
-      <p>Scan assets across 13 legal categories. Flagged phrases with suggested fixes.</p>
-      <span class="card-tag">Launch tool →</span>
-    </a>
-
-    <a href="https://okx-translation-tool.netlify.app/" target="_blank" class="card card-trans">
-      <div class="card-icon">🌐</div>
-      <h3>Translation</h3>
-      <p>Translate into 21 languages. Structured output by section, ready to use.</p>
-      <span class="card-tag">Launch tool →</span>
-    </a>
+  <div class="tab-content" id="tab-overview">
+    <div class="ai-ctr">
+      <div class="ai-hd">
+        <div class="ai-htag"><div class="bar"></div><span>Global Email Team</span></div>
+        <h2>AI <em>Email Engine</em></h2>
+        <p>7 agents powering a full-cycle pipeline — from ideation to reporting, every step AI-assisted.</p>
+      </div>
+      <div class="ai-vs">
+        <div class="ai-vw" id="ai-vw">
+          <video id="ai-vid" muted playsinline preload="metadata"><source src="/ai-agents-pipeline.mp4" type="video/mp4"></video>
+          <div class="ai-vo" id="ai-vo"><div class="ai-pb"><svg width="28" height="28" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+        </div>
+        <div class="ai-vl">▶ WATCH THE AI EMAIL ENGINE IN ACTION</div>
+      </div>
+      <div class="ai-sb">
+        <div class="ai-sc"><div class="ai-sv">7</div><div class="ai-sl">Live Agents</div></div>
+        <div class="ai-sc"><div class="ai-sv">5</div><div class="ai-sl">Pipeline Steps</div></div>
+        <div class="ai-sc"><div class="ai-sv">~70%</div><div class="ai-sl">AI Coverage</div></div>
+        <div class="ai-sc"><div class="ai-sv">80%</div><div class="ai-sl">3-Month Target</div></div>
+      </div>
+      <div class="ai-cys">
+        <div class="ai-secl"><div class="bar"></div><span>End-to-End Pipeline</span></div>
+        <div class="ai-cyc" id="ai-cyc">
+          <svg id="ai-svg" viewBox="0 0 700 700"></svg>
+          <div class="ai-cyc-ctr"><div class="ai-cyc-ring"><h3>AI Email<br>Engine</h3><div class="sub">END-TO-END</div></div></div>
+        </div>
+      </div>
+      <div class="ai-as">
+        <div class="ai-secl"><div class="bar"></div><span>Live Agents</span></div>
+        <div class="ai-nav-bar" id="ai-navBar"></div>
+        <div class="ai-cg" id="ai-cg"></div>
+      </div>
+    </div>
   </div>
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + (tab === 'tools' ? 'tools' : 'overview')).classList.add('active');
+  document.getElementById('tab-btn-' + (tab === 'tools' ? 'tools' : 'overview')).classList.add('active');
+}
+const V=document.getElementById('ai-vid'),O=document.getElementById('ai-vo'),W=document.getElementById('ai-vw');
+if(W)W.onclick=()=>{V.paused?(V.play(),O.classList.add('hid')):(V.pause(),O.classList.remove('hid'))};
+if(V)V.onended=()=>O.classList.remove('hid');
 
-  <div class="footer">
-    <p>OKX Global Email Marketing · QA · Compliance · Translation</p>
-  </div>
+const S=[
+  {n:"Ideation",d:"Editorial topics, briefs & campaign copy",b:"4 hours",a:"5 min"},
+  {n:"Template QA",d:"5-dimension scoring & A/B suggestions",b:"2+ hours",a:"30 sec"},
+  {n:"Compliance",d:"13 legal categories screened instantly",b:"24–48 hrs",a:"5 min"},
+  {n:"Translation",d:"21 languages with brand enforcement",b:"72 hours",a:"<12 hrs"},
+  {n:"Reporting",d:"AI-powered insights across all markets",b:"Manual",a:"Instant"}
+],cx=350,cy=350,R=260,svg=document.getElementById('ai-svg'),cyc=document.getElementById('ai-cyc');
+function gp(i){const a=(-90+72*i)*Math.PI/180;return{x:cx+R*Math.cos(a),y:cy+R*Math.sin(a)}}
+const arcs=[];
+if(svg){
+  for(let i=0;i<5;i++){
+    const j=(i+1)%5,a1=-90+72*i+18,a2=(j===0?-90+360:-90+72*j)-18,r=R+6;
+    const s={x:cx+r*Math.cos(a1*Math.PI/180),y:cy+r*Math.sin(a1*Math.PI/180)};
+    const e={x:cx+r*Math.cos(a2*Math.PI/180),y:cy+r*Math.sin(a2*Math.PI/180)};
+    const la=(a2-a1)>180?1:0;
+    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',`M ${s.x} ${s.y} A ${r} ${r} 0 ${la} 1 ${e.x} ${e.y}`);
+    p.setAttribute('class','ai-arc');p.dataset.i=i;svg.appendChild(p);arcs.push(p);
+  }
+  S.forEach((s,i)=>{
+    const p=gp(i),px=(p.x/700)*100,py=(p.y/700)*100;
+    const n=document.createElement('div');n.className='ai-cn';n.style.left=px+'%';n.style.top=py+'%';n.dataset.i=i;
+    n.innerHTML=`<div class="nn">0${i+1}</div><div class="nt">${s.n}</div><div class="nd">${s.d}</div><div class="ni"><span class="bf">${s.b}</span><span class="ar">→</span><span class="af">${s.a}</span></div>`;
+    cyc.appendChild(n);
+  });
+  let ai=0,auto=true;
+  function sa(i){ai=i;document.querySelectorAll('.ai-cn').forEach((n,j)=>n.classList.toggle('on',j===i));arcs.forEach((a,j)=>a.classList.toggle('on',j<=i))}
+  document.querySelectorAll('.ai-cn').forEach(n=>{n.onmouseenter=()=>{auto=false;sa(+n.dataset.i)};n.onmouseleave=()=>auto=true});
+  sa(0);setInterval(()=>{if(auto)sa((ai+1)%5)},2500);
+}
+const AG=[
+  {t:"Editorial Agent",b:["New","Live"],d:"AI-powered editorial topic recommendation and daily content production across a six-tab dashboard:",tl:["Claude","ChatGPT"],bu:["Market, product & cultural event tracking with volatility heatmap","A/B product angles on every story with six message style toggles","Daily briefs, editorial calendar & social sentiment analysis","5-min morning refresh replaces 4 hours of manual research"],f:"Automates the entire editorial ideation workflow"},
+  {t:"GTM Email & Copy Agent",b:["New","Live"],d:"End-to-end GTM strategy and copy production from Lark docs, trained on 400 campaigns:",tl:["Claude","ChatGPT"],bu:["Writes across 4 OKX segments: Mass, Prosumer, Advanced, Insti","Full-funnel strategy: Pre-launch, Awareness, Consideration & Conversion","Configurable email series with briefed document output","Direct OKP integration in progress"],f:"Eliminates blank-page time and manual back-and-forth"},
+  {t:"Email QA Agent",b:["New","Live"],d:"AI-enhanced quality scoring across five dimensions with automated checks:",tl:["Claude"],bu:["Scores copy quality, visual design, template compliance, CTA & subject line","Auto spell-check, grammar review & URL validation","Three A/B test suggestions per review with lifecycle cadence recs","Saves 2+ hours per template — results in ~30 seconds"],f:"Removes first-pass manual QA entirely"},
+  {t:"Compliance Review Agent",b:["New","Live"],d:"Pre-screens marketing content against 13 legal compliance categories automatically:",tl:["Claude"],bu:["Covers investment advice, trading inducement & competitor references","Product-specific disclaimer rules for Bots, P2P, Web3, Pre-Market & more","Two-step extraction engine scores content pieces independently","Cuts pre-screening from 24–48 hours to 5 minutes"],f:"Now an always-on compliance gate for all content"},
+  {t:"Email Translation Agent",b:["New","Live"],d:"Vision-powered extraction and translation into 21 languages with brand enforcement:",tl:["Claude"],bu:["3-step workflow: extract → review → translate from screenshots","Handles regional variants: LATAM vs EU Spanish, BR vs EU Portuguese & more","Enforces character limits, preserves brand names & keeps CTAs to 1–3 words","Cuts translation turnaround from 72 hours to under 12 hours"],f:"Unblocks multi-market campaign launches at scale"},
+  {t:"Messaging Strategy & Copy Agent",b:["New","Live"],d:"Generates strategic messaging angles and production-ready copy from campaign context:",tl:["Claude"],bu:["Multiple positioning options with tailored value props & tone variations","Trained on past campaigns, compliance guidelines & brand tone of voice","Pre-populated angle library: Mechanics-First, Competitive, Lifecycle & more","Built-in chat interface to refine and customise output in real time"],f:"Acts as an always-available PMM resource"},
+  {t:"Email Reporting Agent",b:["New","Live"],d:"Centralised performance dashboard with AI-powered analysis across all markets:",tl:["Claude"],bu:["Metrics: delivered, opened, open rate & click rate with WoW/MoM trends","Filterable by region (APAC, Americas, CIS, Europe, MENA & more)","AI Analysis tab with assisted prompts for non-technical users","Top-performing templates & actionable geographic recommendations"],f:"Replaces manual weekly reporting preparation"}
+];
+const G=document.getElementById('ai-cg'),NB=document.getElementById('ai-navBar');
+if(G&&NB){
+  AG.forEach((a,i)=>{
+    const id='agent-'+i;
+    const c=document.createElement('div');c.className='ai-ac';c.id=id;c.style.animation=`fadeUp .6s cubic-bezier(.16,1,.3,1) both`;c.style.animationDelay=`${.5+i*.08}s`;
+    c.innerHTML=`<div class="ai-ct">${a.t}</div><div class="ai-br">${a.b.map(b=>`<span class="ai-bd ai-bd-${b==='Live'?'l':'n'}">${b}</span>`).join('')}</div><div class="ai-cd">${a.d}</div><div class="ai-tr">${a.tl.map(t=>`<span class="ai-tp">${t}</span>`).join('')}</div><div class="ai-bl">${a.bu.map(b=>`<div class="ai-bi"><span class="ai-bic">›</span><span class="ai-bt">${b}</span></div>`).join('')}</div><div class="ai-cf"><span class="st">✦</span>${a.f}</div>`;
+    G.appendChild(c);
+    const btn=document.createElement('button');btn.className='ai-nav-btn';btn.textContent=a.t;
+    btn.onclick=()=>{document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.ai-nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');};
+    NB.appendChild(btn);
+  });
+}
+</script>
 </body>
 </html>
